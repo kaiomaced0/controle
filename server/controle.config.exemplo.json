@@ -1,0 +1,21 @@
+{
+  "host": "127.0.0.1",
+  "porta": 8765,
+  "portaDescoberta": 8766,
+  "taxaHz": 100,
+  "nivelLog": "info",
+  "movimento": "ensaio",
+  "recalibracao": true,
+  "orientacao": "retrato",
+  "sensibilidade": 0,
+  "zonaMorta": -1,
+  "suavizacao": -1,
+  "grausTelaCheia": 0,
+  "grausTelaCheiaY": 0,
+  "inverterX": false,
+  "inverterY": false,
+  "filtro": "euro",
+  "filtroCorteMinimo": 0,
+  "filtroBeta": -1,
+  "saidaMouse": "auto"
+}

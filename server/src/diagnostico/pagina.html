@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <!-- `viewport-fit` e `user-scalable=no`: o aparelho vai ser girado com a mão; zoom acidental
+         por toque duplo no meio da medição só atrapalha. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <title>Controle · diagnóstico</title>
+    <style>
+      /* Tela de bancada, não produto (ATI-025, "fora do escopo": layout bonito). O que manda no
+         estilo é uma regra só — quem está lendo está de pé, com o celular na mão, girando o
+         aparelho e olhando de longe. Então: fundo escuro, número grande, monoespaçado. */
+      :root {
+        --fundo: #12151a;
+        --painel: #1b2029;
+        --linha: #2b323e;
+        --texto: #e8edf4;
+        --apagado: #8b97a8;
+        --bom: #4ade80;
+        --ruim: #f87171;
+        --atencao: #fbbf24;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 12px 12px 32px;
+        background: var(--fundo);
+        color: var(--texto);
+        font-family: ui-monospace, "Cascadia Mono", "Consolas", monospace;
+        font-size: 17px;
+        line-height: 1.35;
+        /* Sem seleção acidental: dedo parado em cima de um botão vira "selecionar texto" no
+           Android e engole o `pointerup` — que é a soltura do botão. */
+        -webkit-user-select: none;
+        user-select: none;
+        touch-action: manipulation;
+      }
+
+      h1 {
+        font-size: 18px;
+        margin: 0 0 10px;
+        letter-spacing: 0.04em;
+        color: var(--apagado);
+        font-weight: 600;
+      }
+
+      .cartao {
+        background: var(--painel);
+        border: 1px solid var(--linha);
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+
+      .estado {
+        font-size: 22px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .bolinha {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--apagado);
+        flex: none;
+      }
+
+      .bolinha.ligado {
+        background: var(--bom);
+      }
+      .bolinha.esperando {
+        background: var(--atencao);
+      }
+      .bolinha.caido {
+        background: var(--ruim);
+      }
+
+      .detalhe {
+        color: var(--apagado);
+        font-size: 14px;
+        margin-top: 6px;
+        word-break: break-word;
+      }
+
+      .eixo {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 4px 0;
+        border-bottom: 1px solid var(--linha);
+      }
+
+      .eixo:last-child {
+        border-bottom: 0;
+      }
+
+      .eixo .nome {
+        color: var(--apagado);
+        font-size: 20px;
+        width: 2.2em;
+      }
+
+      .eixo .valor {
+        font-size: 30px;
+        font-variant-numeric: tabular-nums;
+        font-weight: 700;
+      }
+
+      .eixo .graus {
+        color: var(--apagado);
+        font-size: 16px;
+        font-variant-numeric: tabular-nums;
+        min-width: 6.5em;
+        text-align: right;
+      }
+
+      .medidas {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .medida .rotulo {
+        color: var(--apagado);
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .medida .numero {
+        font-size: 26px;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+
+      button {
+        font: inherit;
+        font-weight: 700;
+        color: var(--texto);
+        background: #2a3240;
+        border: 1px solid var(--linha);
+        border-radius: 10px;
+        padding: 16px 12px;
+        width: 100%;
+        touch-action: manipulation;
+      }
+
+      button:disabled {
+        opacity: 0.45;
+      }
+
+      button.principal {
+        background: #1f6feb;
+        border-color: #2f81f7;
+        font-size: 20px;
+        padding: 18px 12px;
+      }
+
+      button.apertado {
+        background: var(--bom);
+        color: #10251a;
+      }
+
+      .botoes {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      /* Três colunas para os botões do mouse. Alvo de dedo, não de mouse: o que manda na altura
+         é `button.grande`, e a largura sobra da divisão da tela. */
+      .botoes.tres {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      button.grande {
+        min-height: 76px;
+        font-size: 19px;
+      }
+
+      /* Faixa de scroll ao lado dos dois passos: a faixa é para rolar rápido, o passo é para
+         rolar contando. Altura fixa e generosa — é ela que dá curso ao dedo. */
+      .scroll {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .passos {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .faixa {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-height: 162px;
+        border-radius: 10px;
+        border: 1px dashed var(--linha);
+        background: #232b36;
+        color: var(--apagado);
+        font-size: 15px;
+        /* `none`, e não `manipulation`: sem isto o navegador entende o arrastar vertical como
+           rolagem da própria página e engole o gesto antes de o `pointermove` chegar. */
+        touch-action: none;
+      }
+
+      .faixa.apertado {
+        border-style: solid;
+        border-color: var(--bom);
+        color: var(--texto);
+      }
+
+      .faixa.inativa {
+        opacity: 0.45;
+      }
+
+      .aviso {
+        border-color: var(--ruim);
+        color: var(--ruim);
+      }
+
+      .rodape {
+        color: var(--apagado);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      code {
+        color: var(--texto);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>controle · diagnóstico (ATI-025)</h1>
+
+    <div class="cartao">
+      <div class="estado"><span id="bolinha" class="bolinha"></span><span id="estado">desligado</span></div>
+      <div class="detalhe" id="detalhe">toque em “ligar” para pedir o sensor e conectar</div>
+      <button id="ligar" class="principal" style="margin-top: 12px">ligar</button>
+    </div>
+
+    <div class="cartao" id="cartaoInseguro" hidden>
+      <div class="detalhe aviso" id="textoInseguro"></div>
+    </div>
+
+    <div class="cartao">
+      <div class="eixo"><span class="nome">gx</span><span class="valor" id="gx">+0.0000</span><span class="graus" id="gxGraus">+0.0 °/s</span></div>
+      <div class="eixo"><span class="nome">gy</span><span class="valor" id="gy">+0.0000</span><span class="graus" id="gyGraus">+0.0 °/s</span></div>
+      <div class="eixo"><span class="nome">gz</span><span class="valor" id="gz">+0.0000</span><span class="graus" id="gzGraus">+0.0 °/s</span></div>
+      <div class="detalhe">rad/s no fio · °/s só para ler de relance</div>
+    </div>
+
+    <div class="cartao medidas">
+      <div class="medida"><div class="rotulo">taxa medida</div><div class="numero" id="taxa">0.0 Hz</div></div>
+      <div class="medida"><div class="rotulo">dt</div><div class="numero" id="dt">— ms</div></div>
+      <div class="medida"><div class="rotulo">eventos do sensor</div><div class="numero" id="eventos">0</div></div>
+      <div class="medida"><div class="rotulo">movimento</div><div class="numero" id="enviados">0</div></div>
+      <div class="medida"><div class="rotulo">botão</div><div class="numero" id="botoesEnviados">0</div></div>
+      <div class="medida"><div class="rotulo">scroll</div><div class="numero" id="scrollsEnviados">0</div></div>
+      <!-- "recebidas", não "sentidas": o número conta pacote de vibração que chegou e foi
+           decodificado. Onde `navigator.vibrate` não existe (Safari/iOS) ele sobe do mesmo jeito
+           e nenhum motor se mexe — o rótulo evita ler isso como sucesso do motor. -->
+      <div class="medida"><div class="rotulo">vib. recebidas</div><div class="numero" id="vibracoes">0</div></div>
+      <div class="medida"><div class="rotulo">pongs</div><div class="numero" id="pongs">0</div></div>
+    </div>
+
+    <!-- Perfil Mouse básico (ATI-010). Os `data-controle` são os `idControle` da tabela de
+         `src/acoes/mouse-basico.ts`: a página não sabe o que cada número faz — ela manda o número
+         e o PC decide (CLAUDE.md, regra 4: sensor cru no fio, regra no PC). -->
+    <div class="cartao">
+      <div class="detalhe">botões do mouse — BOTÃO (0x02), aperto e soltura separados</div>
+      <div class="botoes tres">
+        <button id="botaoEsquerdo" class="grande" data-controle="1" disabled>esquerdo</button>
+        <button id="botaoDireito" class="grande" data-controle="2" disabled>direito</button>
+        <button id="botaoMeio" class="grande" data-controle="3" disabled>meio</button>
+      </div>
+      <div class="detalhe">
+        segure para arrastar: a soltura só sai quando o dedo sai — e sai também se a aba esconder,
+        se a página fechar ou se a conexão cair
+      </div>
+    </div>
+
+    <div class="cartao">
+      <div class="detalhe">scroll — a faixa manda SCROLL (0x04); os passos mandam BOTÃO (0x02)</div>
+      <div class="scroll">
+        <div class="faixa inativa" id="faixaScroll">arraste<br />para rolar</div>
+        <div class="passos">
+          <button id="scrollCima" class="grande" data-controle="7" disabled>scroll +1</button>
+          <button id="scrollBaixo" class="grande" data-controle="8" disabled>scroll −1</button>
+        </div>
+      </div>
+      <div class="detalhe">arrastar para baixo rola para baixo · o celular vibra a cada entalhe</div>
+    </div>
+
+    <div class="cartao">
+      <!-- Os dois comandos da ATI-009. Aqui eles são quadro de texto `cmd` (PROTOCOLO.md, seção
+           3.5), não pacote binário: são de baixa frequência e o PC responde `cmd-ok`/`cmd-erro`. -->
+      <div class="detalhe">comandos — viram quadro cmd (JSON) no PC</div>
+      <div class="botoes">
+        <button id="centralizar" disabled>centralizar</button>
+        <button id="sincronizar" disabled>sincronizar</button>
+      </div>
+      <div class="detalhe" id="respostaDoComando">nenhum comando ainda</div>
+      <!-- Aviso do PC (quadro `aviso`, PROTOCOLO.md seção 3.8). Mora ao lado do botão que resolve:
+           hoje o único é o bias alto (ATI-029), e o que ele pede é tocar em "sincronizar". O texto
+           vem pronto do PC — a página só mostra. -->
+      <div class="detalhe aviso" id="avisoDoPc" hidden></div>
+    </div>
+
+    <div class="cartao rodape">
+      <p style="margin: 0 0 8px">
+        Precisa ser <code>http://localhost:8765</code> pelo cabo (<code>adb reverse</code>): o
+        navegador só libera <code>devicemotion</code> em contexto seguro, e <code>localhost</code>
+        conta como seguro mesmo sem HTTPS. Pelo Wi-Fi, sem certificado, o sensor não vem.
+      </p>
+      <p style="margin: 0">
+        <code>navigator.vibrate</code> não existe no Safari/iOS: lá o retorno háptico só chega no
+        app nativo (fase 6). No Android o RUMBLE e o HÁPTICO fazem o aparelho vibrar de verdade.
+        Por isso o marcador é <strong>vib. recebidas</strong>: ele conta pacote que chegou, não
+        motor que girou.
+      </p>
+    </div>
+
+    <script type="module" src="/diagnostico/pagina.js"></script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "name": "controle-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Servidor do PC do projeto Controle: recebe sensores e toques do celular e injeta entrada real no sistema.",
+  "type": "module",
+  "main": "dist/principal.js",
+  "scripts": {
+    "dev": "node --import tsx src/principal.ts",
+    "dev:recarga": "tsx watch src/principal.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/principal.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --import tsx --test \"src/**/*.teste.ts\"",
+    "lint": "eslint .",
+    "telemetria": "node --import tsx src/cli/telemetria.ts",
+    "simulador": "node --import tsx src/cli/simulador.ts",
+    "adb:reverse": "node scripts/adb-reverse.mjs"
+  },
+  "engines": {
+    "node": ">= 22.11.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^22.10.5",
+    "@types/ws": "^8.18.1",
+    "eslint": "^9.39.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.67.0"
+  },
+  "dependencies": {
+    "koffi": "^3.1.6",
+    "ws": "^8.21.3"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  // Build de distribuição: o mesmo rigor do typecheck, sem levar os testes para dist/.
+  //
+  // `src/saida/dubla.ts` sai junto: é o backend dublê, e só teste importa. Deixá-lo em `dist/`
+  // era publicar, no pacote de produção, um backend que aceita tudo e não mexe em cursor nenhum
+  // (ATI-007, parecer da rodada 1, sugestão 5).
+  "extends": "./tsconfig.json",
+  "exclude": ["src/**/*.teste.ts", "src/saida/dubla.ts"]
+}

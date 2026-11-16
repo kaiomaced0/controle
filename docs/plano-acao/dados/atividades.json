@@ -1,0 +1,502 @@
+{
+  "projeto": "controle",
+  "total": 33,
+  "porStatus": {
+    "concluido": 19,
+    "em_andamento": 2,
+    "pendente": 12
+  },
+  "atividades": [
+    {
+      "ati": "ATI-001",
+      "titulo": "Fundacao do repositorio, documentacao base e fluxo de agentes",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "estrutural",
+      "sprint": "sprint-0-fundacao",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [],
+      "arquivo": "docs/plano-acao/atividades-concluidas/2026-08/ATI-001.md"
+    },
+    {
+      "ati": "ATI-002",
+      "titulo": "Scaffold do servidor do PC (Node 22 + TypeScript)",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "estrutural",
+      "sprint": "sprint-1-telemetria",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-001"
+      ],
+      "arquivo": "docs/plano-acao/atividades-concluidas/2026-08/ATI-002.md"
+    },
+    {
+      "ati": "ATI-003",
+      "titulo": "App - leitura do giroscopio e medicao da taxa real",
+      "status": "em_andamento",
+      "prioridade": "alta",
+      "categoria": "estrutural",
+      "sprint": "sprint-1-telemetria",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-001",
+        "ATI-024"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-003.md"
+    },
+    {
+      "ati": "ATI-004",
+      "titulo": "Codec do protocolo v0.1 nos dois lados",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "estrutural",
+      "sprint": "sprint-1-telemetria",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-002"
+      ],
+      "arquivo": "docs/plano-acao/atividades-concluidas/2026-08/ATI-004.md"
+    },
+    {
+      "ati": "ATI-005",
+      "titulo": "Transporte USB - adb reverse, WebSocket, handshake e heartbeat",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "estrutural",
+      "sprint": "sprint-1-telemetria",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-003",
+        "ATI-004"
+      ],
+      "arquivo": "docs/plano-acao/atividades-concluidas/2026-08/ATI-005.md"
+    },
+    {
+      "ati": "ATI-006",
+      "titulo": "Telemetria ao vivo - CLI no PC e tela no app",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "incremental",
+      "sprint": "sprint-1-telemetria",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-005"
+      ],
+      "arquivo": "docs/plano-acao/atividades-concluidas/2026-08/ATI-006.md"
+    },
+    {
+      "ati": "ATI-007",
+      "titulo": "Backend de entrada do Windows - SendInput via FFI",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "estrutural",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-002"
+      ],
+      "arquivo": "docs/plano-acao/atividades-concluidas/2026-08/ATI-007.md"
+    },
+    {
+      "ati": "ATI-008",
+      "titulo": "Pipeline de movimento - bias, deadzone, suavizacao, sensibilidade e subpixel",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "estrutural",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-006",
+        "ATI-007"
+      ],
+      "arquivo": "docs/plano-acao/atividades-concluidas/2026-08/ATI-008.md"
+    },
+    {
+      "ati": "ATI-009",
+      "titulo": "Comandos centralizar e sincronizar (calibracao de bias)",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "incremental",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-008"
+      ],
+      "arquivo": "docs/plano-acao/atividades-concluidas/2026-08/ATI-009.md"
+    },
+    {
+      "ati": "ATI-010",
+      "titulo": "Perfil Mouse basico - tela com botoes, cliques e scroll",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "incremental",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-007",
+        "ATI-008"
+      ],
+      "arquivo": "docs/plano-acao/atividades-concluidas/2026-08/ATI-010.md"
+    },
+    {
+      "ati": "ATI-011",
+      "titulo": "Ajuste de sensibilidade e zona morta pelo celular",
+      "status": "pendente",
+      "prioridade": "media",
+      "categoria": "incremental",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-008",
+        "ATI-010"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-011.md"
+    },
+    {
+      "ati": "ATI-012",
+      "titulo": "Teste de campo da fase 2 e ajuste fino",
+      "status": "pendente",
+      "prioridade": "media",
+      "categoria": "diagnostico",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-009",
+        "ATI-010",
+        "ATI-011"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-012.md"
+    },
+    {
+      "ati": "ATI-013",
+      "titulo": "Wi-Fi - descoberta do PC na rede e selecao de servidor",
+      "status": "pendente",
+      "prioridade": "media",
+      "categoria": "estrutural",
+      "sprint": "sprint-3-wifi",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-005"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-013.md"
+    },
+    {
+      "ati": "ATI-014",
+      "titulo": "Pareamento por token e controle de sessao",
+      "status": "pendente",
+      "prioridade": "media",
+      "categoria": "estrutural",
+      "sprint": "sprint-3-wifi",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-013"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-014.md"
+    },
+    {
+      "ati": "ATI-015",
+      "titulo": "Resiliencia de conexao e seguranca contra estado preso",
+      "status": "pendente",
+      "prioridade": "media",
+      "categoria": "estrutural",
+      "sprint": "sprint-3-wifi",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-013"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-015.md"
+    },
+    {
+      "ati": "ATI-016",
+      "titulo": "Schema e validacao dos perfis de controle",
+      "status": "pendente",
+      "prioridade": "media",
+      "categoria": "estrutural",
+      "sprint": "sprint-4-perfis",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-010"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-016.md"
+    },
+    {
+      "ati": "ATI-017",
+      "titulo": "Engine de renderizacao de perfis no app",
+      "status": "pendente",
+      "prioridade": "media",
+      "categoria": "estrutural",
+      "sprint": "sprint-4-perfis",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-016"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-017.md"
+    },
+    {
+      "ati": "ATI-018",
+      "titulo": "Mapeador de acoes no servidor - tecla, scroll, interno e macro",
+      "status": "pendente",
+      "prioridade": "media",
+      "categoria": "estrutural",
+      "sprint": "sprint-4-perfis",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-016"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-018.md"
+    },
+    {
+      "ati": "ATI-019",
+      "titulo": "Gerenciador de perfis - listar, trocar, duplicar e editar",
+      "status": "pendente",
+      "prioridade": "media",
+      "categoria": "incremental",
+      "sprint": "sprint-4-perfis",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-017",
+        "ATI-018"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-019.md"
+    },
+    {
+      "ati": "ATI-020",
+      "titulo": "Gamepad Xbox virtual via ViGEmBus",
+      "status": "pendente",
+      "prioridade": "media",
+      "categoria": "estrutural",
+      "sprint": "sprint-5-gamepad",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-007"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-020.md"
+    },
+    {
+      "ati": "ATI-021",
+      "titulo": "Sticks, gatilhos e giro no stick direito",
+      "status": "pendente",
+      "prioridade": "media",
+      "categoria": "incremental",
+      "sprint": "sprint-5-gamepad",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-020",
+        "ATI-017"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-021.md"
+    },
+    {
+      "ati": "ATI-022",
+      "titulo": "Vibracao - rumble do jogo ate o celular",
+      "status": "pendente",
+      "prioridade": "media",
+      "categoria": "incremental",
+      "sprint": "sprint-5-gamepad",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-020"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-022.md"
+    },
+    {
+      "ati": "ATI-023",
+      "titulo": "Simulador de aparelho para verificacao sem hardware",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "estrutural",
+      "sprint": "sprint-1-telemetria",
+      "dono": "kaio",
+      "achado": [],
+      "depende_de": [
+        "ATI-004",
+        "ATI-005"
+      ],
+      "arquivo": "docs/plano-acao/atividades-concluidas/2026-08/ATI-023.md"
+    },
+    {
+      "ati": "ATI-024",
+      "titulo": "Desbloquear o build Android nesta maquina (firewall corporativo)",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "diagnostico",
+      "sprint": "sprint-1-telemetria",
+      "dono": "kaio",
+      "achado": [
+        "build-android-impedido"
+      ],
+      "depende_de": [],
+      "arquivo": "docs/plano-acao/atividade/ATI-024.md"
+    },
+    {
+      "ati": "ATI-025",
+      "titulo": "Cliente web de diagnostico - giroscopio pelo navegador do celular",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "diagnostico",
+      "sprint": "sprint-1-telemetria",
+      "dono": "kaio",
+      "achado": [
+        "build-android-impedido"
+      ],
+      "depende_de": [
+        "ATI-005",
+        "ATI-006"
+      ],
+      "arquivo": "docs/plano-acao/atividades-concluidas/2026-08/ATI-025.md"
+    },
+    {
+      "ati": "ATI-026",
+      "titulo": "Aceleracao de ponteiro do Windows distorce o movimento relativo",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "correcao",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [
+        "aceleracao-de-ponteiro"
+      ],
+      "depende_de": [
+        "ATI-007",
+        "ATI-008"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-026.md"
+    },
+    {
+      "ati": "ATI-027",
+      "titulo": "Painel de telemetria sem backend de saida e sem pipeline",
+      "status": "concluido",
+      "prioridade": "media",
+      "categoria": "correcao",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [
+        "telemetria-sem-pipeline"
+      ],
+      "depende_de": [
+        "ATI-008"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-027.md"
+    },
+    {
+      "ati": "ATI-028",
+      "titulo": "Contadores do pipeline sao do processo, nao da sessao",
+      "status": "concluido",
+      "prioridade": "baixa",
+      "categoria": "correcao",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [
+        "contadores-de-sessao"
+      ],
+      "depende_de": [
+        "ATI-008"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-028.md"
+    },
+    {
+      "ati": "ATI-029",
+      "titulo": "Limites da recalibracao - documentar os numeros e avisar bias alto",
+      "status": "em_andamento",
+      "prioridade": "media",
+      "categoria": "incremental",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [
+        "limites-da-recalibracao"
+      ],
+      "depende_de": [
+        "ATI-009"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-029.md"
+    },
+    {
+      "ati": "ATI-030",
+      "titulo": "Teste que usa a porta fixa 8765 falha quando o servidor esta rodando",
+      "status": "concluido",
+      "prioridade": "media",
+      "categoria": "correcao",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [
+        "teste-preso-a-porta"
+      ],
+      "depende_de": [
+        "ATI-002"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-030.md"
+    },
+    {
+      "ati": "ATI-031",
+      "titulo": "Pagina de diagnostico fica muda quando o navegador nao entrega o giroscopio",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "correcao",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [
+        "sensor-mudo-no-navegador"
+      ],
+      "depende_de": [
+        "ATI-025"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-031.md"
+    },
+    {
+      "ati": "ATI-032",
+      "titulo": "Pegada de apontador e ajustes do giro pela configuracao",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "correcao",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [
+        "pegada-errada-parece-impreciso"
+      ],
+      "depende_de": [
+        "ATI-008"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-032.md"
+    },
+    {
+      "ati": "ATI-033",
+      "titulo": "Filtro adaptativo para o tremor da mao (zona morta nao basta)",
+      "status": "concluido",
+      "prioridade": "alta",
+      "categoria": "incremental",
+      "sprint": "sprint-2-mouse",
+      "dono": "kaio",
+      "achado": [
+        "tremor-da-mao"
+      ],
+      "depende_de": [
+        "ATI-008",
+        "ATI-032"
+      ],
+      "arquivo": "docs/plano-acao/atividade/ATI-033.md"
+    }
+  ]
+}
